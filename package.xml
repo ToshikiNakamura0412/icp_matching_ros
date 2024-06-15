@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>icp_matching_ros</name>
+  <version>0.0.0</version>
+  <description>The icp_matching_ros package</description>
+  <maintainer email="tnakamura.amsl@gmail.com">Toshiki Nakamura</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>pcl_ros</depend>
+  <depend>roscpp</depend>
+  <depend>tf</depend>
+
+  <test_depend>rostest</test_depend>
+  <test_depend>roslint</test_depend>
+</package>
