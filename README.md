@@ -15,6 +15,7 @@ Provide a library `icp_matching`, demo nodes.
 ## Environment
 - Ubuntu 20.04
 - ROS Noetic
+- PCL
 
 ## Install and Build
 ```
