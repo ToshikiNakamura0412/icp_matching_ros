@@ -36,6 +36,9 @@ int main(int argc, char *argv[])
   ROS_INFO_STREAM("  src_pcd_path: " << src_pcd_path);
   ROS_INFO_STREAM("  target_pcd_path: " << target_pcd_path);
   ROS_INFO_STREAM("  point_num: " << point_num);
+  ROS_INFO_STREAM("  rotation_yaw: " << rotation_yaw);
+  ROS_INFO_STREAM("  translation_x: " << translation_x);
+  ROS_INFO_STREAM("  translation_y: " << translation_y);
 
   // create point cloud
   pcl::PointCloud<pcl::PointXYZ> cloud_src;
