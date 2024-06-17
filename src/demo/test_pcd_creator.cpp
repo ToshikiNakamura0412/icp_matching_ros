@@ -9,7 +9,9 @@
 #include <pcl/point_types.h>
 #include <pcl/visualization/cloud_viewer.h>
 #include <pcl_ros/transforms.h>
+#include <random>
 #include <ros/ros.h>
+#include <string>
 #include <tf/tf.h>
 
 int main(int argc, char *argv[])
@@ -39,11 +41,14 @@ int main(int argc, char *argv[])
   pcl::PointCloud<pcl::PointXYZ> cloud_src;
   cloud_src.is_dense = false;
   cloud_src.resize(point_num);
-  srand(time(0));
+  std::random_device rd;
+  std::mt19937 gen{rd()};
+  std::uniform_int_distribution<> distrib_x(0.0, 20.0);
+  std::uniform_int_distribution<> distrib_y(0.0, 10.0);
   for (auto &point : cloud_src.points)
   {
-    point.x = rand() % 20;
-    point.y = rand() % 10;
+    point.x = distrib_x(gen);
+    point.y = distrib_y(gen);
     point.z = 0.0;
   }
 
