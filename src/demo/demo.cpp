@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
   std::string src_pcd_path, target_pcd_path, frame_id;
   pnh.param<bool>("enable_downsampling", enable_downsampling, false);
   pnh.param<float>("leaf_size", leaf_size, 0.003);
-  pnh.param<float>("sleep_time", sleep_time, 1.5);
+  pnh.param<float>("sleep_time", sleep_time, 0.3);
   pnh.param<std::string>("src_pcd_path", src_pcd_path, std::string("src_pcd.pcd"));
   pnh.param<std::string>("target_pcd_path", target_pcd_path, std::string("target_pcd.pcd"));
   pnh.param<std::string>("frame_id", frame_id, std::string("map"));

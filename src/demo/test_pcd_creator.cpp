@@ -14,36 +14,51 @@
 
 int main(int argc, char *argv[])
 {
+  // initialize ROS
   ros::init(argc, argv, "test_pcd_creator");
+  ros::NodeHandle pnh("~");
+
+  // read parameters
+  std::string src_pcd_path, target_pcd_path;
+  int point_num;
+  float rotation_yaw, translation_x, translation_y;
+  pnh.param<std::string>("src_pcd_path", src_pcd_path, std::string("src_pcd.pcd"));
+  pnh.param<std::string>("target_pcd_path", target_pcd_path, std::string("target_pcd.pcd"));
+  pnh.param<int>("point_num", point_num, 20);
+  pnh.param<float>("rotation_yaw", rotation_yaw, 0.2);
+  pnh.param<float>("translation_x", translation_x, 5.0);
+  pnh.param<float>("translation_y", translation_y, -2.0);
+
+  // print information
   ROS_INFO_STREAM(ros::this_node::getName() << " node has started..");
+  ROS_INFO_STREAM("  src_pcd_path: " << src_pcd_path);
+  ROS_INFO_STREAM("  target_pcd_path: " << target_pcd_path);
+  ROS_INFO_STREAM("  point_num: " << point_num);
 
-  float test_2d_points[][2] =
+  // create point cloud
+  pcl::PointCloud<pcl::PointXYZ> cloud_src;
+  cloud_src.is_dense = false;
+  cloud_src.resize(point_num);
+  srand(time(0));
+  for (auto &point : cloud_src.points)
   {
-      {1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 10}, {1, 0}, {3, 0}, {5, 0}, {7, 0}, {9, 0},
-  };
-
-  pcl::PointCloud<pcl::PointXYZ> src_cloud;
-  src_cloud.is_dense = false;
-  src_cloud.resize(sizeof(test_2d_points) / sizeof(test_2d_points[0]));
-  for (const auto &point : test_2d_points)
-  {
-    pcl::PointXYZ pcl_point;
-    pcl_point.x = point[0];
-    pcl_point.y = point[1];
-    pcl_point.z = 0;
-    src_cloud.push_back(pcl_point);
+    point.x = rand() % 20;
+    point.y = rand() % 10;
+    point.z = 0.0;
   }
 
+  // transform point cloud
   tf::Quaternion q;
-  q.setRPY(0, 0, 0.2);
-  tf::Transform tf(q, tf::Vector3(5.0, -2.0, 0.0));
-  pcl::PointCloud<pcl::PointXYZ> target_cloud;
-  pcl_ros::transformPointCloud(src_cloud, target_cloud, tf);
+  q.setRPY(0, 0, rotation_yaw);
+  tf::Transform tf(q, tf::Vector3(translation_x, translation_y, 0.0));
+  pcl::PointCloud<pcl::PointXYZ> cloud_target;
+  pcl_ros::transformPointCloud(cloud_src, cloud_target, tf);
 
-  pcl::io::savePCDFileASCII("src_pcd.pcd", src_cloud);
-  ROS_INFO_STREAM("Saved PCD to ./src_pcd.pcd");
-  pcl::io::savePCDFileASCII("target_pcd.pcd", target_cloud);
-  ROS_INFO_STREAM("Saved PCD to ./target_pcd.pcd");
+  // save point cloud
+  pcl::io::savePCDFileASCII(src_pcd_path, cloud_src);
+  ROS_INFO_STREAM("Saved PCD to " << src_pcd_path);
+  pcl::io::savePCDFileASCII(target_pcd_path, cloud_target);
+  ROS_INFO_STREAM("Saved PCD to " << target_pcd_path);
 
   return 0;
 }
