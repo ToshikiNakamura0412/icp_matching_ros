@@ -31,7 +31,7 @@ add_library(icp_matching SHARED
 )
 add_dependencies(icp_matching ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-add_executable (test_pcd_creator src/demo/test_pcd_creator.cpp)
+add_executable(test_pcd_creator src/demo/test_pcd_creator.cpp)
 target_link_libraries(test_pcd_creator ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
 add_executable(demo src/demo/demo.cpp)
