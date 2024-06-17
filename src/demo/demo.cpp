@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
     icp_matching.voxel_grid_filter(cloud_target, leaf_size, cloud_target);
   }
 
-  // publish initial point clouds
+  // convert to ROS message
   sensor_msgs::PointCloud2 cloud_src_msg, cloud_target_msg, cloud_src_registered_msg;
   pcl::toROSMsg(*cloud_src, cloud_src_msg);
   pcl::toROSMsg(*cloud_target, cloud_target_msg);
