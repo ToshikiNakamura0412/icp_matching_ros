@@ -7,6 +7,7 @@
 
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
+#include <pcl/visualization/cloud_viewer.h>
 #include <pcl_ros/transforms.h>
 #include <ros/ros.h>
 #include <tf/tf.h>
@@ -34,7 +35,7 @@ int main(int argc, char *argv[])
   }
 
   tf::Quaternion q;
-  q.setRPY(0, 0, 1.0);
+  q.setRPY(0, 0, 0.2);
   tf::Transform tf(q, tf::Vector3(5.0, -2.0, 0.0));
   pcl::PointCloud<pcl::PointXYZ> target_cloud;
   pcl_ros::transformPointCloud(src_cloud, target_cloud, tf);
