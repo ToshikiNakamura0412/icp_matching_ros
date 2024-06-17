@@ -28,20 +28,21 @@ int main(int argc, char *argv[])
   bool enable_downsampling;
   float leaf_size, sleep_time;
   std::string src_pcd_path, target_pcd_path, frame_id;
-  pnh.param<bool>("enable_downsampling", enable_downsampling, false);
-  pnh.param<float>("leaf_size", leaf_size, 0.003);
-  pnh.param<float>("sleep_time", sleep_time, 0.3);
   pnh.param<std::string>("src_pcd_path", src_pcd_path, std::string("src_pcd.pcd"));
   pnh.param<std::string>("target_pcd_path", target_pcd_path, std::string("target_pcd.pcd"));
   pnh.param<std::string>("frame_id", frame_id, std::string("map"));
+  pnh.param<bool>("enable_downsampling", enable_downsampling, false);
+  pnh.param<float>("leaf_size", leaf_size, 0.003);
+  pnh.param<float>("sleep_time", sleep_time, 0.3);
 
   // print information
   ROS_INFO_STREAM(ros::this_node::getName() << " node has started..");
-  ROS_INFO_STREAM("  enable_downsampling: " << enable_downsampling);
-  ROS_INFO_STREAM("  leaf_size: " << leaf_size);
   ROS_INFO_STREAM("  src_pcd_path: " << src_pcd_path);
   ROS_INFO_STREAM("  target_pcd_path: " << target_pcd_path);
   ROS_INFO_STREAM("  frame_id: " << frame_id);
+  ROS_INFO_STREAM("  enable_downsampling: " << enable_downsampling);
+  ROS_INFO_STREAM("  leaf_size: " << leaf_size);
+  ROS_INFO_STREAM("  sleep_time: " << sleep_time);
 
   // initialize
   ICPMatching icp_matching;
