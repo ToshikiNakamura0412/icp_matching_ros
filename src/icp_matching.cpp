@@ -35,13 +35,16 @@ void ICPMatching::voxel_grid_filter(
 
 void ICPMatching::align(
     const PointCloudT::Ptr cloud_src, const PointCloudT::Ptr cloud_target, PointCloudT &cloud_src_registered,
-    const int iterations)
+    const int iterations, const double max_correspondence_distance)
 {
   pcl::IterativeClosestPoint<PointT, PointT> icp;
 
   icp.setInputSource(cloud_src);
   icp.setInputTarget(cloud_target);
   icp.setMaximumIterations(iterations);
+  icp.setMaxCorrespondenceDistance(max_correspondence_distance);
+  icp.setTransformationEpsilon(1e-8);
+  icp.setEuclideanFitnessEpsilon(1e-8);
   icp.align(cloud_src_registered);
 
   has_converged_ = icp.hasConverged();

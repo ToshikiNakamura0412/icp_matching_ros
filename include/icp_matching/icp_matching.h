@@ -8,6 +8,7 @@
 #ifndef ICP_MATCHING_ICP_MATCHING_H
 #define ICP_MATCHING_ICP_MATCHING_H
 
+#include <limits>
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_cloud.h>
@@ -59,7 +60,8 @@ public:
    */
   void align(
       const PointCloudT::Ptr cloud_src, const PointCloudT::Ptr cloud_target, PointCloudT &cloud_src_registered,
-      const int iterations = 10);
+      const int iterations = 10,
+      const double max_correspondence_distance = std::sqrt(std::numeric_limits<double>::max()));
 
   /**
    * @brief Check if ICP has converged
