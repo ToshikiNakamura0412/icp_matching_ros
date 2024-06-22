@@ -15,7 +15,12 @@ find_package(PCL REQUIRED)
 ###################################
 ## catkin specific configuration ##
 ###################################
-catkin_package()
+catkin_package(
+  INCLUDE_DIRS include
+  LIBRARIES icp_matching
+  CATKIN_DEPENDS pcl_conversions pcl_ros roscpp sensor_msgs tf
+  DEPENDS PCL
+)
 
 ###########
 ## Build ##
@@ -36,6 +41,18 @@ target_link_libraries(test_pcd_creator ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
 add_executable(demo src/demo/demo.cpp)
 target_link_libraries(demo ${catkin_LIBRARIES} ${PCL_LIBRARIES} icp_matching)
+
+#############
+## INSTALL ##
+#############
+install(TARGETS icp_matching
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+)
+install(DIRECTORY include/icp_matching
+  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
+)
 
 #############
 ## Testing ##
